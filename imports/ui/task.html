@@ -1,0 +1,37 @@
+<template name='task'>
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    {{#unless editing}}
+      <span class="text">{{text}}</span>
+    {{/unless}}
+    {{#if editing}}
+      <form class="edittask">
+        <input type="text" name="edittext" placeholder={{text}} />
+      </form>
+    {{/if}}
+    {{#unless checked}}
+      {{#unless editing}}
+        <br/>
+        <span class="{{#if late}} late {{/if}}">
+          Due On:	{{due.string}}
+          {{#if late}}
+            **Late**
+          {{/if}}
+        </span>
+        <br/>
+        <span>
+
+            Created By: {{username}}
+
+        </span>
+        <br/>
+        <button class="edit">Edit Task</button>
+        <button class="moveUp">Move Due Date Up</button>
+        <button class="pushBack">Push Due Date Back</button>
+      {{/unless}}
+    {{/unless}}
+
+  </li>
+</template>

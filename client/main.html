@@ -1,0 +1,43 @@
+<head>
+  <title>J's Test</title>
+  <script>
+  function getCollection(coll) {
+    return new Collection("pierreponttest", coll);
+  }
+
+  function Collection(db, coll) {
+    this.apiKey = "a9xyZxIEz048JOrLWsFsP5vyuFdAO0QE";
+    this.db = db;
+    this.coll = coll;
+    this.getData = function(callback) {
+      var requestUrl = "https://api.mlab.com/api/1/databases/"+this.db+"/collections/"+this.coll+"?apiKey="+this.apiKey;
+      return $.get(requestUrl, callback);
+    }
+    this.getDataSync = function(callback) {
+      var requestUrl = "https://api.mlab.com/api/1/databases/"+this.db+"/collections/"+this.coll+"?apiKey="+this.apiKey;
+      return $.ajax( {
+        url : requestUrl,
+        async : false} )["responseJSON"]
+    }
+    this.addData = function(dataObject, callback) {
+      var requestUrl = "https://api.mlab.com/api/1/databases/"+this.db+"/collections/"+this.coll+"?apiKey="+this.apiKey;
+      $.ajax({
+        url : requestUrl,
+        data: JSON.stringify(dataObject),
+        type: "POST",
+        contentType: "application/json"
+      });
+    }
+    this.setData = function(dataObject, callback) {
+      var requestUrl = "https://api.mlab.com/api/1/databases/"+this.db+"/collections/"+this.coll+"?apiKey="+this.apiKey;
+      $.ajax({
+        url : requestUrl,
+        data: JSON.stringify(dataObject),
+        type: "PUT",
+        contentType: "application/json"
+      });
+    }
+  }
+  //import { Tasks } from '../api/tasks.js';
+  </script>
+</head>

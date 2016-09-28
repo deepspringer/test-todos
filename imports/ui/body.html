@@ -1,0 +1,51 @@
+
+<body onLoad="checkLate()" name="homeBody">
+  <script type="text/javascript" src="body.js">
+    checkLate() {}
+  </script>
+  <script type="text/javascript">
+  console.log(this)
+  </script>
+  <script type="text/javascript">
+  checkLate() {
+    const instance = Template.instance();
+    var i;
+    console.log("About to check due dates for all tasks")
+    var now = new Date;
+    var dueDate = instance.due.date;
+    if(now > dueDate) {
+      Tasks.update(this._id, {
+        $set: { late: false }
+      })
+    } else {
+      Tasks.update(this._id, {
+        $set: { late: true }
+      })
+    }
+  }
+  </script>
+  <div class='container'>
+    <header>
+      <h1>Todo List</h1>
+    </header>
+    {{> loginButtons}}
+    {{#if currentUser}}
+    <form class="new-task">
+      <input type="text" name="text" placeholder="Type to add new tasks" />
+    </form>
+    {{/if}}
+    <br/>
+    <label class="hide-completed">
+      <input type="checkbox" />
+      Hide Completed Tasks
+    </label>
+    <button class="customCode">Custom Code</button>
+    <button class="customCode2">Import Student Database from mLab</button>
+    <hr>
+    <ul>
+      {{#each students}}
+        {{> student}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
